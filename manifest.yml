@@ -1,0 +1,6 @@
+applications:
+- path: build/libs/catalog-0.0.1-SNAPSHOT.jar
+  memory: 512M
+  instances: 1
+  domain: mybluemix.net
+  disk_quota: 1024M
