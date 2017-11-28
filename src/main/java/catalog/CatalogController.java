@@ -1,8 +1,11 @@
 package catalog;
 
+import catalog.models.*;
+
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,13 +21,16 @@ public class CatalogController {
 
     Logger logger = LoggerFactory.getLogger(CatalogController.class);
 
+    @Autowired
+    InventoryRepo itemsRepo;
+
     /**
      * @return all items in inventory
      */
     @RequestMapping(value = "/items", method = RequestMethod.GET)
     @ResponseBody
-    ResponseEntity<?> getInventory() {
-        return ResponseEntity.ok("[{\"id\": 1,\"name\":\"one\"},{\"id\":2,\"name\":\"two\"}]");
+    Iterable<Inventory> getInventory() {
+        return itemsRepo.findAll();
     }
 
     /**
@@ -32,7 +38,11 @@ public class CatalogController {
      */
     @RequestMapping(value = "/items/{id}", method = RequestMethod.GET)
     ResponseEntity<?> getById(@PathVariable long id) {
-                return ResponseEntity.ok("{\"id\":1,\"name\":\"one\"}");
+                if (!itemsRepo.exists(id)) {
+                        return ResponseEntity.notFound().build();
+                }
+
+                return ResponseEntity.ok(itemsRepo.findOne(id));
     }
 
 }
