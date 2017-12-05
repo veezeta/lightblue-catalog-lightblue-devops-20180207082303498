@@ -1,28 +1,14 @@
 # Server configuration
 server:
   context-path: /micro
-  port: 8081
+  port: 8080
 
 # Spring properties
 spring:
-  application:
-     name: catalog-microservice
-
-  # MySQL Data source configuration
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost/inventorydb
+    url: jdbc:mysql://cap-sg-prd-5.integration.ibmcloud.com:17645/inventorydb
     username: dbuser
     password: Pass4dbUs3R
-    port: 3306
-    max-active: 4
-    testOnBorrow: true
-    validationQuery: SELECT 1
-
   jpa:
     database: MYSQL
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
-
