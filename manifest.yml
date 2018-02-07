@@ -2,5 +2,4 @@ applications:
 - path: build/libs/lightblue-catalog-0.0.1.jar
   memory: 512M
   instances: 1
-  domain: mybluemix.net
   disk_quota: 1024M
